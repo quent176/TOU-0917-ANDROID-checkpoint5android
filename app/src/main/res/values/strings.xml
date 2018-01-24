@@ -4,4 +4,5 @@
     <string name="arrival_place">Lieu d\'arrivée</string>
     <string name="departure_date">Date de départ</string>
     <string name="return_date">Date de retour</string>
+    <string name="search_trip">Rechercher un voyage</string>
 </resources>
