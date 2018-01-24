@@ -1,4 +1,4 @@
-package fr.wcs.wcstravel;
+package fr.wcs.wcstravel.Models;
 
 /**
  * Created by apprenti on 24/01/18.

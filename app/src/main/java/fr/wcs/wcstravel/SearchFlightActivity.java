@@ -19,11 +19,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import fr.wcs.wcstravel.Models.AirportModel;
+import fr.wcs.wcstravel.Models.TravelModel;
+
 public class SearchFlightActivity extends AppCompatActivity {
 
     private EditText mEditDepartureDate, mEditReturnDate;
-    private AutoCompleteTextView mEditDeparturePlace;
-    private Spinner mEditArrivalPlace;
+    private AutoCompleteTextView mEditArrivalPlace;
+    private Spinner mEditDeparturePlace;
     private DatabaseReference mAirportDB;
 
     private ArrayAdapter<String> airportAdapterDeparture = null;
@@ -46,31 +49,32 @@ public class SearchFlightActivity extends AppCompatActivity {
         mEditReturnDate = findViewById(R.id.edit_return_date);
         Button buttonSearch = (Button) findViewById(R.id.button_search_trip);
 
-        //Auto Suggestion Airports from Database
+        //Auto Suggestion Airports from Database for arrival
         mAirportDB.orderByChild("value").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listAirportDeparture.clear();
+                listAirportArrival.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     AirportModel airportModel = data.getValue(AirportModel.class);
-                    listAirportDeparture.add(airportModel.getLabel());
+                    listAirportArrival.add(airportModel.getLabel());
                     //Spinner getting only NYC
                     if(airportModel.getLabel().contains("NYC")) {
-                        listAirportArrival.add(airportModel.getLabel());
+                        listAirportDeparture.add(airportModel.getLabel());
                     }
                 }
                 //add  to autocompletionview and remove NYC from the list
-                airportAdapterDeparture = new ArrayAdapter<String>(SearchFlightActivity.this, R.layout.search_box, R.id.tvHintCompletion, listAirportDeparture);
-                mEditDeparturePlace.setAdapter(airportAdapterDeparture);
-                for (int i = 0; i < listAirportDeparture.size(); i++)
+                airportAdapterArrival = new ArrayAdapter<String>(SearchFlightActivity.this, R.layout.search_box, R.id.tvHintCompletion, listAirportArrival);
+                mEditArrivalPlace.setAdapter(airportAdapterArrival);
+                for (int i = 0; i < listAirportArrival.size(); i++)
                 {
-                    if (listAirportDeparture.get(i).contains("NYC")){
-                        listAirportDeparture.remove(i);
+                    if (listAirportArrival.get(i).contains("NYC")){
+                        listAirportArrival.remove(i);
                     }
                 }
                 //Spinner getting only NYC - see above with Firebase
-                airportAdapterArrival = new ArrayAdapter<String>(SearchFlightActivity.this, R.layout.support_simple_spinner_dropdown_item, listAirportArrival);
-                mEditArrivalPlace.setAdapter(airportAdapterArrival);
+                airportAdapterDeparture = new ArrayAdapter<String>(SearchFlightActivity.this, R.layout.support_simple_spinner_dropdown_item, listAirportDeparture);
+                mEditDeparturePlace.setAdapter(airportAdapterDeparture);
             }
 
             @Override
@@ -89,10 +93,10 @@ public class SearchFlightActivity extends AppCompatActivity {
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mEditDeparturePlace.getText().toString().trim().isEmpty() || mEditArrivalPlace.getSelectedItem().toString().trim().isEmpty()) {
+                if (mEditDeparturePlace.getSelectedItem().toString().trim().isEmpty() || mEditArrivalPlace.getText().toString().trim().isEmpty()) {
                     Toast.makeText(SearchFlightActivity.this, "Veuillez remplir le lieu de départ et d'arrivée", Toast.LENGTH_SHORT).show();
                 } else {
-                    TravelModel travelModel = new TravelModel(mEditDeparturePlace.getText().toString(), mEditArrivalPlace.getSelectedItem().toString(), datePicker.getTheDate(), datePicker2.getTheDate());
+                    TravelModel travelModel = new TravelModel(mEditDeparturePlace.getSelectedItem().toString(), mEditArrivalPlace.getText().toString(), datePicker.getTheDate(), datePicker2.getTheDate());
                     Intent intent = new Intent(SearchFlightActivity.this, ResultFlightActivity.class);
                     intent.putExtra("TheTravel", travelModel);
                     startActivity(intent);

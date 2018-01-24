@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import fr.wcs.wcstravel.Models.ResultTripModel;
+import fr.wcs.wcstravel.Models.SearchTravelModel;
+import fr.wcs.wcstravel.Models.TravelModel;
 
 public class ResultFlightActivity extends AppCompatActivity {
 

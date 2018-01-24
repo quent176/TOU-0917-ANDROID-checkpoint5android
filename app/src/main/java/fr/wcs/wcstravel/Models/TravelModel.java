@@ -1,4 +1,4 @@
-package fr.wcs.wcstravel;
+package fr.wcs.wcstravel.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
