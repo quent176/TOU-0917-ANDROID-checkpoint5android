@@ -1,8 +1,11 @@
 package fr.wcs.wcstravel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class TravelModel {
+public class TravelModel implements Parcelable {
 
     private String departurePlace;
     private String arrivalPlace;
@@ -51,4 +54,39 @@ public class TravelModel {
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
+
+    protected TravelModel(Parcel in) {
+        departurePlace = in.readString();
+        arrivalPlace = in.readString();
+        long tmpDepartureDate = in.readLong();
+        departureDate = tmpDepartureDate != -1 ? new Date(tmpDepartureDate) : null;
+        long tmpReturnDate = in.readLong();
+        returnDate = tmpReturnDate != -1 ? new Date(tmpReturnDate) : null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(departurePlace);
+        dest.writeString(arrivalPlace);
+        dest.writeLong(departureDate != null ? departureDate.getTime() : -1L);
+        dest.writeLong(returnDate != null ? returnDate.getTime() : -1L);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<TravelModel> CREATOR = new Parcelable.Creator<TravelModel>() {
+        @Override
+        public TravelModel createFromParcel(Parcel in) {
+            return new TravelModel(in);
+        }
+
+        @Override
+        public TravelModel[] newArray(int size) {
+            return new TravelModel[size];
+        }
+    };
 }
