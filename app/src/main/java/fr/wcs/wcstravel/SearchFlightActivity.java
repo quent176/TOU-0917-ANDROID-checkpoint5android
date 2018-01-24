@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,13 +37,17 @@ public class SearchFlightActivity extends AppCompatActivity {
         mEditDepartureDate.setFocusable(false);
         mEditReturnDate.setFocusable(false);
 
-        TextView testmessage = (TextView) findViewById(R.id.test_message);
-        testmessage.setText(datePicker.dateGiver().toString());
-
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TravelModel travelModel = new TravelModel(mEditDeparturePlace.getText().toString(), mEditArrivalPlace.getText().toString(), datePicker.dateGiver(), datePicker2.dateGiver());
+                if (mEditDeparturePlace.getText().toString().trim().isEmpty() || mEditArrivalPlace.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(SearchFlightActivity.this, "Veuillez remplir le lieu de départ et d'arrivée", Toast.LENGTH_SHORT).show();
+                } else {
+                    TravelModel travelModel = new TravelModel(mEditDeparturePlace.getText().toString(), mEditArrivalPlace.getText().toString(), datePicker.getTheDate(), datePicker2.getTheDate());
+                    Intent intent = new Intent(SearchFlightActivity.this, ResultFlightActivity.class);
+                    intent.putExtra("TheTravel", travelModel);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
@@ -16,6 +19,7 @@ public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDi
     private int _month;
     private int _birthYear;
     private Context _context;
+    private Calendar myCalendar = Calendar.getInstance(TimeZone.getDefault());
 
     public MyEditTextDatePicker(Context context, int editTextViewID)
     {
@@ -27,18 +31,17 @@ public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDi
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        _birthYear = year;
-        _month = monthOfYear;
-        _day = dayOfMonth;
+        myCalendar.set(Calendar.YEAR, year);
+        myCalendar.set(Calendar.MONTH, monthOfYear);
+        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         updateDisplay();
     }
     @Override
     public void onClick(View v) {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
 
         DatePickerDialog dialog = new DatePickerDialog(_context, this,
-                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
+                myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
         dialog.show();
 
     }
@@ -46,8 +49,13 @@ public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDi
     // updates the date in the birth date EditText
     private void updateDisplay() {
 
-        _editText.setText(new StringBuilder()
-                // Month is 0 based so add 1
-                .append(_day).append("/").append(_month + 1).append("/").append(_birthYear).append(" "));
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        _editText.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public Date getTheDate(){
+        return myCalendar.getTime();
     }
 }
