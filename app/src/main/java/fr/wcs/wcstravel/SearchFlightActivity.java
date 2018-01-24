@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import fr.wcs.wcstravel.Models.AirportModel;
 import fr.wcs.wcstravel.Models.TravelModel;
+import fr.wcs.wcstravel.Utils.MyEditTextDatePicker;
 
 public class SearchFlightActivity extends AppCompatActivity {
 

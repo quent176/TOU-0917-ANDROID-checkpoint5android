@@ -1,4 +1,4 @@
-package fr.wcs.wcstravel;
+package fr.wcs.wcstravel.Utils;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -14,7 +14,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
-    EditText _editText;
+    private EditText _editText;
     private int _day;
     private int _month;
     private int _birthYear;
