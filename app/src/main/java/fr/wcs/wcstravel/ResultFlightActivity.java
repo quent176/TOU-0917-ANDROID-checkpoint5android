@@ -2,15 +2,20 @@ package fr.wcs.wcstravel;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ResultFlightActivity extends AppCompatActivity {
 
     TravelModel mTravelModel;
     TextView mResultDeparturePlace, mResultArrivalPlace, mResultDepartureDate, mResultReturnDate;
+    List<ResultTripModel> mResultTripModel = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +37,9 @@ public class ResultFlightActivity extends AppCompatActivity {
         mResultArrivalPlace.setText(mTravelModel.getArrivalPlace());
         mResultDepartureDate.setText(sdf.format(mTravelModel.getDepartureDate().getTime()));
         mResultReturnDate.setText(sdf.format(mTravelModel.getReturnDate().getTime()));
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new ResultTravelAdapter(mResultTripModel, this));
     }
 }
