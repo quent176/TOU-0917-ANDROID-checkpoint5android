@@ -1,4 +1,4 @@
-package fr.wcs.wcstravel;
+package fr.wcs.wcstravel.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.wcs.wcstravel.Models.ResultTripModel;
+import fr.wcs.wcstravel.R;
 
 public class ResultTravelAdapter extends RecyclerView.Adapter<ResultTravelAdapter.MyViewHolder> {
 

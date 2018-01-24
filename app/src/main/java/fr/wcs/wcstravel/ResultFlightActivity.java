@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import fr.wcs.wcstravel.Adapters.ResultTravelAdapter;
 import fr.wcs.wcstravel.Models.ResultTripModel;
 import fr.wcs.wcstravel.Models.SearchTravelModel;
 import fr.wcs.wcstravel.Models.TravelModel;
@@ -75,11 +76,12 @@ public class ResultFlightActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mResultTripModelList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    //recherche dans tous les nodes de la base
                     SearchTravelModel searchTravelModel = data.getValue(SearchTravelModel.class);
                     if(searchTravelModel.getDeparture_date().equals(mResultDepartureDate)
                             && searchTravelModel.getReturn_date().equals(mResultReturnDate)
-                            && searchTravelModel.getTravel().contains("NYC")
-                            && searchTravelModel.getTravel().contains("LAX")){
+                            && mResultDeparturePlace.contains(searchTravelModel.getTravel().substring(0,2))
+                            && mResultArrivalPlace.contains(searchTravelModel.getTravel().substring(4,6))){
                         mResultTripModelList.add(new ResultTripModel(searchTravelModel.getAirline(),searchTravelModel.getPrice()));
                         mResultTravelAdapter.notifyDataSetChanged();
                     }
