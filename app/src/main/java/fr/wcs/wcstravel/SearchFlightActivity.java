@@ -46,7 +46,7 @@ public class SearchFlightActivity extends AppCompatActivity {
         mEditReturnDate = findViewById(R.id.edit_return_date);
         Button buttonSearch = (Button) findViewById(R.id.button_search_trip);
 
-        //Auto Suggestion Friends from Database
+        //Auto Suggestion Airports from Database
         mAirportDB.orderByChild("value").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
