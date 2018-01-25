@@ -16,6 +16,8 @@ public class ResultTravelAdapter extends RecyclerView.Adapter<ResultTravelAdapte
 
     private Context mContext;
     private List<ResultTripModel> mItem;
+    private String mPriceUSD;
+    private Double mPriceDoubleUSD;
 
     public ResultTravelAdapter (List<ResultTripModel> item, Context context){
         this.mItem = item;
@@ -46,13 +48,14 @@ public class ResultTravelAdapter extends RecyclerView.Adapter<ResultTravelAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mResultCompany, mResultPrice;
+        TextView mResultCompany, mResultPrice, mResultPriceEUR;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             mResultCompany = itemView.findViewById(R.id.result_company);
-            mResultPrice = itemView.findViewById(R.id.result_price);
+            mResultPrice = itemView.findViewById(R.id.result_price_USD);
+            mResultPriceEUR = itemView.findViewById(R.id.result_price_EUR);
 
         }
 
@@ -60,7 +63,20 @@ public class ResultTravelAdapter extends RecyclerView.Adapter<ResultTravelAdapte
 
             mResultCompany.setText(resultTripModel.getCompany());
             mResultPrice.setText(resultTripModel.getPrice());
+            mPriceUSD = resultTripModel.getPrice();
+            mPriceDoubleUSD = Double.parseDouble(mPriceUSD);
+            mResultPriceEUR.setText(convertPrice(mPriceDoubleUSD, "USD", "EUR"));
 
         }
     }
+
+    public String convertPrice(Double inputPrice, String currencyFrom, String currencyTo){
+      String newPrice = "";
+        if (currencyFrom.equals("USD") && (currencyTo.equals("EUR"))) {
+            Double newPriceDouble = inputPrice * 0.80;
+            newPrice = String.valueOf(newPriceDouble);
+        }
+      return newPrice;
+    }
+
 }
