@@ -45,7 +45,7 @@ public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDi
                 myCalendar.get(Calendar.DAY_OF_MONTH));
 
         //Set first date and add 7 days after it
-        myCalendar.set(2018,1,24);
+        myCalendar.set(2018,0,24);
         dialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis());
         dialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis() + 7 * DateUtils.DAY_IN_MILLIS);
 
