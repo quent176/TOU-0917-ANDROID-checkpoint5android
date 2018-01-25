@@ -61,11 +61,11 @@ public class ResultTravelAdapter extends RecyclerView.Adapter<ResultTravelAdapte
 
         public void display(ResultTripModel resultTripModel) {
 
-            mResultCompany.setText(resultTripModel.getCompany());
-            mResultPrice.setText(resultTripModel.getPrice());
+            mResultCompany.setText(mContext.getResources().getString(R.string.flight_company) + " : " + resultTripModel.getCompany());
+            mResultPrice.setText(resultTripModel.getPrice() + " $");
             mPriceUSD = resultTripModel.getPrice();
             mPriceDoubleUSD = Double.parseDouble(mPriceUSD);
-            mResultPriceEUR.setText(convertPrice(mPriceDoubleUSD, "USD", "EUR"));
+            mResultPriceEUR.setText(convertPrice(mPriceDoubleUSD, "USD", "EUR") + " €");
 
         }
     }
