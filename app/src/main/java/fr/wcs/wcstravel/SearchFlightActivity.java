@@ -96,6 +96,8 @@ public class SearchFlightActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (mEditDeparturePlace.getSelectedItem().toString().trim().isEmpty() || mEditArrivalPlace.getText().toString().trim().isEmpty()) {
                     Toast.makeText(SearchFlightActivity.this, R.string.toast_error_fill, Toast.LENGTH_SHORT).show();
+                }else if(!mEditArrivalPlace.getText().toString().contains("BOS") && !mEditArrivalPlace.getText().toString().contains("LAX") && !mEditArrivalPlace.getText().toString().contains("MIA")){
+                    Toast.makeText(SearchFlightActivity.this, R.string.toast_error_fill_airport, Toast.LENGTH_SHORT).show();
                 } else {
                     TravelModel travelModel = new TravelModel(mEditDeparturePlace.getSelectedItem().toString(), mEditArrivalPlace.getText().toString(), datePicker.getTheDate(), datePicker2.getTheDate());
                     Intent intent = new Intent(SearchFlightActivity.this, ResultFlightActivity.class);
