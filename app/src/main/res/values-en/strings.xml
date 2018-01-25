@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WCSTravel</string>
+    <string name="departure_place">Departure Place</string>
+    <string name="arrival_place">Arrival Place</string>
+    <string name="departure_date">Departure Date</string>
+    <string name="return_date">Return Date</string>
+    <string name="search_trip">Search a flight</string>
+    <string name="flight_company">Flight Company</string>
+    <string name="toast_error_fill">Please fill departure and arrival place</string>
+    <string name="toast_error_fill_airport">Please choose an airport in suggestions</string>
+</resources>

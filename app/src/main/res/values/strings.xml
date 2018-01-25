@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WCSTravel</string>
+    <string name="departure_place">Lieu de départ</string>
+    <string name="arrival_place">Lieu d\'arrivée</string>
+    <string name="departure_date">Date de départ</string>
+    <string name="return_date">Date de retour</string>
+    <string name="search_trip">Rechercher un voyage</string>
+    <string name="flight_company">Compagnie Aerienne</string>
+    <string name="toast_error_fill">Veuillez remplir le lieu de départ et d\'arrivée</string>
+    <string name="toast_error_fill_airport">Veuillez choisir dans les suggestions</string>
 </resources>
