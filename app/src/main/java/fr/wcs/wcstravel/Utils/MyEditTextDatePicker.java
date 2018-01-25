@@ -3,6 +3,7 @@ package fr.wcs.wcstravel.Utils;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,10 +39,16 @@ public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDi
     }
     @Override
     public void onClick(View v) {
-
+        int day;
         DatePickerDialog dialog = new DatePickerDialog(_context, this,
                 myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
+
+        //Set first date and add 7 days after it
+        myCalendar.set(2018,1,24);
+        dialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis());
+        dialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis() + 7 * DateUtils.DAY_IN_MILLIS);
+
         dialog.show();
 
     }
